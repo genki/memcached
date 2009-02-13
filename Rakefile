@@ -1,6 +1,6 @@
 require 'echoe'
 
-Echoe.new("memcached") do |p|
+echoe = Echoe.new("memcached") do |p|
   p.author = "Evan Weaver"
   p.project = "fauna"
   p.summary = "An interface to the libmemcached C client."
@@ -27,4 +27,11 @@ end
 
 task :profile do
  exec("ruby #{File.dirname(__FILE__)}/test/profile/profile.rb")
+end
+
+desc "Generate gemspec file"
+task :gemspec do
+  open("#{echoe.name}.gemspec", "w") do |file|
+    file.write echoe.spec.to_ruby
+  end
 end
